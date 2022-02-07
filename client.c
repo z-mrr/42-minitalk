@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:22:45 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/02/07 13:41:35 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/02/07 16:56:32 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,35 @@ long int	ft_atoi(const char *nptr)
 
 void    process(int pid, char *str)
 {
-    
+    int i;
+
+    while (*str)
+    {
+        i = 8;
+        while (i--)
+        {
+            if ((*str >> i) & 1)
+            {
+                kill(pid, SIGUSR1);
+                usleep(100);
+            }
+            else
+            {
+                kill(pid, SIGUSR2);
+                usleep(100);
+            }
+        }  
+        str++;  
+    }
 }
 
-int main(int ac, char *av)
+int main(int ac, char **av)
 {
     int pid;
 
-    if (ac != 3 || ft_atoi(av[1]) < 1)
+    if (ac != 3 || ft_atoi(av[1]) < 1 || !av[2])
         return (1);
     pid = ft_atoi(av[1]);
     process(pid, av[2]);
+    return (0);
 }
