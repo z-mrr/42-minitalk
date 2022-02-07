@@ -1,0 +1,13 @@
+BITWISE
+AND &
+    result is 1 when both bits are 1
+OR |
+    result is 0 when both bits are 0
+EXC OR ^
+NOT ~
+    resut is 0 when 1, 1 when 0
+LEFT SHIFT whose bits get shifted << decides the nbr of places to shift the bits
+    left shifting equiv. to multiplication by 2^rightOperand
+    3 << 1 = 3 x 2^1 = 6
+
+
