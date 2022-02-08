@@ -6,14 +6,48 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:22:45 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/02/08 15:28:22 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/02/08 17:26:28 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <signal.h>
+#include <stdlib.h>
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
+void	ft_putnbr(int n)
+{
+	int		i;
+	int		nbr[11];
+
+	if (n == -2147483648 || n == 0)
+	{
+		if (n == -2147483648)
+			write(1, "-2147483648", 11);
+		else if (n == 0)
+			ft_putchar('0');
+		return ;
+	}
+	if (n < 0)
+	{
+		ft_putchar('-');
+		n = -n;
+	}
+	i = 0;
+	while (n > 0)
+	{
+		nbr[i] = n % 10;
+		n = n / 10;
+		i++;
+	}
+	while (--i >= 0)
+		ft_putchar(nbr[i] + '0');
+}
 
 long int	ft_atoi(const char *nptr)
 {
@@ -41,7 +75,7 @@ long int	ft_atoi(const char *nptr)
 }
 
 
-void    process(int spid, char *str)
+void    send_msg(int spid, char *str)
 {
     int     i;
 
@@ -74,7 +108,11 @@ void    process(int spid, char *str)
 void    sighandler(int sig)
 {
     if (sig == SIGUSR1)
-        write(1, "Message was delivered!\n", 23);
+    {
+        write(1, "Message was delivered to server!\n", 33);
+        write(1, "Exiting client\n", 15);
+        exit(0);
+    }
 }
 
 int main(int ac, char **av)
@@ -86,9 +124,12 @@ int main(int ac, char **av)
         return (1);
     sa.sa_handler = sighandler;
     spid = ft_atoi(av[1]);
-    printf("Message sent.\nClient PID: %d\n", getpid());
-    process(spid, av[2]);
+    write(1, "Message sent from Client PID: ", 30);
+    ft_putnbr(getpid());
+    write(1, "\n", 1);
+    send_msg(spid, av[2]);
     sigaction(SIGUSR1, &sa, 0);
-    pause();
+    while (1)
+        pause();
     return (0);
 }
