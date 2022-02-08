@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:22:48 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/02/08 15:28:22 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/02/08 16:01:13 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@ void sighandler(int sig)
 
 void    get_pid(int sig, siginfo_t *info, void *context)
 {
-    int             cpid;
-    static int     i = 8;
-    static char    c = 0;
+    static int      cpid;
+    static int      i = 8;
+    static char     c = 0;
 
-    cpid = info->si_pid;
+    if (!cpid)
+        cpid = info->si_pid;
     if (sig == SIGUSR1)
         c |= 1;
     else if (sig == SIGUSR2)
@@ -61,6 +62,7 @@ void    get_pid(int sig, siginfo_t *info, void *context)
             printf("Message from client PID: %d\n", cpid);
             usleep(100);
             kill(cpid, SIGUSR1);
+            cpid = 0;
         }
         else
             write(1, &c, 1);
