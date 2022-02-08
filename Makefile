@@ -6,7 +6,7 @@
 #    By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/08 16:28:47 by jdias-mo          #+#    #+#              #
-#    Updated: 2022/02/08 17:28:09 by jdias-mo         ###   ########.fr        #
+#    Updated: 2022/02/08 17:29:50 by jdias-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ bonus: server client
 server: server.o 
 	$(CC) -o $@ $<
 
-cserver: client.o 
+client: client.o 
 	$(CC) -o $@ $<
 %.o: %.c
 	$(CC) -c $(CFLAGS) $?
