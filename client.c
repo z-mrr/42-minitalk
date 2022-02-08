@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:22:45 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/02/08 17:26:28 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/02/08 17:31:53 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ void    sighandler(int sig)
 {
     if (sig == SIGUSR1)
     {
-        write(1, "Message was delivered to server!\n", 33);
-        write(1, "Exiting client\n", 15);
+        write(1, "Message was delivered to the Server.\n", 37);
+        write(1, "Exiting client!\n", 16);
         exit(0);
     }
 }
