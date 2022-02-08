@@ -6,14 +6,11 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:22:48 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/02/08 17:48:30 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/02/08 18:22:36 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <sys/types.h>
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h>
+#include "minitalk.h"
 /*
 void sighandler(int sig)
 {
@@ -39,40 +36,6 @@ void sighandler(int sig)
         c = 0;
     }
 }*/
-
-void	ft_putchar(char c)
-{
-	write(1, &c, 1);
-}
-
-void	ft_putnbr(int n)
-{
-	int		i;
-	int		nbr[11];
-
-	if (n == -2147483648 || n == 0)
-	{
-		if (n == -2147483648)
-			write(1, "-2147483648", 11);
-		else if (n == 0)
-			ft_putchar('0');
-		return ;
-	}
-	if (n < 0)
-	{
-		ft_putchar('-');
-		n = -n;
-	}
-	i = 0;
-	while (n > 0)
-	{
-		nbr[i] = n % 10;
-		n = n / 10;
-		i++;
-	}
-	while (--i >= 0)
-		ft_putchar(nbr[i] + '0');
-}
 
 void    get_msg(int sig, siginfo_t *info, void *context)
 {

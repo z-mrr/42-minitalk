@@ -6,13 +6,21 @@
 #    By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/08 16:28:47 by jdias-mo          #+#    #+#              #
-#    Updated: 2022/02/08 17:31:53 by jdias-mo         ###   ########.fr        #
+#    Updated: 2022/02/08 18:45:46 by jdias-mo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SOURCES = server.c client.c
+SOURCES = server.c client.c utils.c
+
+CSOURCES = client.c utils.c
+
+SSOURCES = server.c utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
+
+COBJECTS = $(CSOURCES:.c=.o)
+
+SOBJECTS = $(SSOURCES:.c=.o)
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
@@ -21,11 +29,11 @@ all: server client
 
 bonus: server client
 
-server: server.o 
-	$(CC) -o $@ $<
+server: $(SOBJECTS)
+	$(CC) -o $@ $(SOBJECTS)
 
-client: client.o 
-	$(CC) -o $@ $<
+client: $(COBJECTS)
+	$(CC) -o $@ $(COBJECTS)
 %.o: %.c
 	$(CC) -c $(CFLAGS) $?
 
@@ -37,4 +45,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all bonus clean fclean server client re
+.PHONY: all bonus clean fclean re
