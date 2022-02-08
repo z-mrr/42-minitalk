@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:22:45 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/02/08 18:47:47 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/02/08 20:58:13 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	sighandler(int sig)
 
 int	main(int ac, char **av)
 {
-	int								spid;
+	int					spid;
 	struct sigaction	sa;
 
 	if (ac != 3 || ft_atoi(av[1]) < 1 || !av[2])
