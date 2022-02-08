@@ -11,3 +11,8 @@ LEFT SHIFT whose bits get shifted << decides the nbr of places to shift the bits
     3 << 1 = 3 x 2^1 = 6
 
 ascii value in binary is the same as ascii char
+
+How do I find the PID of a signal sender?
+To know the PID of the process which sent a signal, set options=SA_SIGINFO ,
+ and use a sa_sigaction callback instead of sa_handler ; it will receive a siginfo_t struct,
+  having a si_pid field. You can associate a data to the signal using sigqueue

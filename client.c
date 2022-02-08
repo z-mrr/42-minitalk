@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:22:45 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/02/08 14:31:28 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/02/08 15:28:22 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,14 +71,24 @@ void    process(int spid, char *str)
     }
 }
 
+void    sighandler(int sig)
+{
+    if (sig == SIGUSR1)
+        write(1, "Message was delivered!\n", 23);
+}
+
 int main(int ac, char **av)
 {
     int spid;
+    struct sigaction    sa = {0};
 
     if (ac != 3 || ft_atoi(av[1]) < 1 || !av[2])
         return (1);
+    sa.sa_handler = sighandler;
     spid = ft_atoi(av[1]);
-    process(spid, av[2]);
     printf("Message sent.\nClient PID: %d\n", getpid());
+    process(spid, av[2]);
+    sigaction(SIGUSR1, &sa, 0);
+    pause();
     return (0);
 }
