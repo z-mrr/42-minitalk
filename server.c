@@ -6,13 +6,14 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:22:48 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/02/08 17:26:29 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/02/08 17:48:30 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/types.h>
 #include <unistd.h>
 #include <signal.h>
+#include <stdlib.h>
 /*
 void sighandler(int sig)
 {
@@ -84,8 +85,11 @@ void    get_msg(int sig, siginfo_t *info, void *context)
         cpid = info->si_pid;
     if (sig == SIGUSR1)
         c |= 1;
-    else if (sig == SIGUSR2)
-        c |= 0;
+    else if (sig == SIGINT)
+    {
+        write(1, "\nServer is going offline!\n", 26);
+        exit(0);
+    }
     if (--i)
         c <<= 1;
     else
@@ -120,6 +124,7 @@ int main(void)
     write(1, "Waiting for incoming message...\n", 32);
     sigaction(SIGUSR1, &sa, 0);
     sigaction(SIGUSR2, &sa, 0);
+    sigaction(SIGINT, &sa, 0);
     while(1)
         pause();
     return (0);
