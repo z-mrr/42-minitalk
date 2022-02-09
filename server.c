@@ -6,7 +6,7 @@
 /*   By: jdias-mo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/07 12:22:48 by jdias-mo          #+#    #+#             */
-/*   Updated: 2022/02/08 21:34:11 by jdias-mo         ###   ########.fr       */
+/*   Updated: 2022/02/09 14:46:47 by jdias-mo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	get_msg(int sig, siginfo_t *info, void *context)
 			print_text(cpid);
 			kill(cpid, SIGUSR1);
 			cpid = 0;
-			return ;
 		}
-		write(1, &c, 1);
+		else
+			write(1, &c, 1);
 		i = 8;
 		c = 0;
 	}
